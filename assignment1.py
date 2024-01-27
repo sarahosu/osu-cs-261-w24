@@ -91,13 +91,18 @@ def is_sorted(arr: StaticArray) -> int:
     """
     TODO: Write this implementation
     """
-    for i in range(arr.length()):
-        if arr[i] > arr[i+1]:
-            pass
-        elif if arr[i] < arr[i+1]
-            pass
+    if arr.length() == 1:
+        return 1
+
+    desc = 0
+    asc = 0
+    for i in range(arr.length() - 1):
+        if arr[i] >= arr[i+1]:
+            desc = -1
         else:
-            pass
+            asc = 1
+    return asc + desc
+
             
 
 # ------------------- PROBLEM 7 - FIND_MODE -----------------------------------
@@ -106,7 +111,22 @@ def find_mode(arr: StaticArray) -> tuple[object, int]:
     """
     TODO: Write this implementation
     """
-    pass
+    # current_val = arr[0]
+    # current_val_count = 0
+    mode = arr[0]
+    frequency = 0
+    i = 0 
+    while i < arr.length():
+        current_val = arr[i]
+        current_val_count = 0
+        while i < arr.length() and current_val == arr[i]:
+            current_val_count += 1
+            if current_val_count > frequency:
+                frequency = current_val_count
+                mode = current_val
+            i += 1
+# [1,1,1,2,2,5,5]
+    return (mode, frequency)
 
 # ------------------- PROBLEM 8 - REMOVE_DUPLICATES -------------------------
 
