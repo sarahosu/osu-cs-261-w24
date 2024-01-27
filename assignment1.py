@@ -91,7 +91,14 @@ def is_sorted(arr: StaticArray) -> int:
     """
     TODO: Write this implementation
     """
-    pass
+    for i in range(arr.length()):
+        if arr[i] > arr[i+1]:
+            pass
+        elif if arr[i] < arr[i+1]
+            pass
+        else:
+            pass
+            
 
 # ------------------- PROBLEM 7 - FIND_MODE -----------------------------------
 
