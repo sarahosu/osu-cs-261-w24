@@ -3,7 +3,18 @@
 # Course: CS261 - Data Structures
 # Assignment: 1 - Python Fundamentals Review
 # Due Date: 01/29/2024
-# Description:
+# Description: has 10 functions along with testing
+    # function min_max takes in a StaticArray and outputs the min and max in a tuple (with O(N) time complexity)
+    # function fizz_buzz takes a StaticArray and outputs a new and modified StaticArray with values fizz, buzz, & fizzbuzz (with O(N) time complexity)
+    # function reverse takes a StaticArray and reverses elements (with O(N) time complexity)
+    # function rotate takes a StaticArray and an integer, then outputs a new StaticArray with elements rotated by given integer (with O(N) time complexity)
+    # function sa_range takes a two integers, start and end, then returns a StaticArray with consecutive integers of parameters (with O(N) time complexity)
+    # function is_sorted takes a StaticArray and returns 1, -1, or 0 that denotes that values are ascending/descending/neither (with O(N) time complexity)
+    # function find_mode takes a StaticArray and returns a tuple containing original elements ordered by most repeated to the least repeated (with O(N) time complexity)
+    # function remove_duplicates takes a StaticArray and returns a new StaticArray containing original elements without repeats (with O(N) time complexity)
+    # function count_sort takes a StaticArray and returns a new StaticArray containing original elements in an ascending order (with O(N+K) time complexity)
+    # function sorted_squares takes a StaticArray and returns a new StaticArray containing original elements squared in a non-descending order (with O(N) time complexity)
+
 
 
 import random
@@ -14,8 +25,12 @@ from static_array import *
 
 def min_max(arr: StaticArray) -> tuple[int, int]:
     """
-    TODO: Write this implementation
+    function min_max takes in a StaticArray
+    iterates through StaticArray and assigns min and max values
+    returns min and max values in a tuple
     """
+
+    # Iterate over arr, storing only the smallest and highest values we see. O(n)
     static_array_length = arr.length()
     min, max = arr[0], arr[0]
     for i in range(static_array_length):
@@ -29,8 +44,14 @@ def min_max(arr: StaticArray) -> tuple[int, int]:
 
 def fizz_buzz(arr: StaticArray) -> StaticArray:
     """
-    TODO: Write this implementation
+    function fizz_buzz takes a StaticArray and outputs a new and modified 
+    StaticArray with values: 
+        -fizz (if original element is divisible by 3)
+        -buzz (if original element is divisible by 5)
+        -fizzbuzz (if original element is divisible both 3 and 5)
     """
+
+    # Iterate over arr, use mod math to determine if something is divisible by 3 and 5 first, then either divisible by 5/3 then 3/5. O(n)
     ret = StaticArray(size=arr.length())
     for i in range(arr.length()):
         if arr[i] % 3 == 0 and arr[i] % 5 == 0:
@@ -48,20 +69,29 @@ def fizz_buzz(arr: StaticArray) -> StaticArray:
 
 def reverse(arr: StaticArray) -> None:
     """
-    TODO: Write this implementation
+    function reverse takes a StaticArray and reverses elements 
     """
+    
     static_array_length = arr.length()
+
+    # iterate only half of StaticArray O(n)
     for i in range(static_array_length // 2): 
+        # swaps current index with mirror index
         arr[i], arr[static_array_length-1-i] = arr[static_array_length-1-i], arr[i]
 
 # ------------------- PROBLEM 4 - ROTATE ------------------------------------
 
 def rotate(arr: StaticArray, steps: int) -> StaticArray:
     """
-    TODO: Write this implementation
+    function rotate takes two parameters: StaticArray and an integer,
+    then outputs a new StaticArray with elements rotated by given integer
     """
+
+    # new StaticArray called ret with arr length O(n)
     ret = StaticArray(size=arr.length())
     for i in range(arr.length()):
+        # adds steps to current index modulus length
+        # assigns to arr[i] value
         ret[(i + steps) % arr.length()] = arr[i]
     return ret
 
@@ -69,16 +99,25 @@ def rotate(arr: StaticArray, steps: int) -> StaticArray:
 
 def sa_range(start: int, end: int) -> StaticArray:
     """
-    TODO: Write this implementation
+    function sa_range takes a two integers, start and end, 
+    then returns a StaticArray with consecutive integers
+    along with the parameters in non-descending order
     """
-    if start > end: # 1
-        interval = start-end+1 # 1
-        ret = StaticArray(size=interval) # 1
-        direction = -1 # 1
+
+    # interval denotes the number of values between the two parameters
+    # If the start is higher than the end, that means we want to go backwards eg. counting down, as opposed
+    # to counting upwards, denoted by the direction
+    if start > end: 
+        interval = start-end+1 
+        ret = StaticArray(size=interval) 
+        direction = -1 
     else:
-        interval = end-start+1 # 1
-        ret = StaticArray(size=interval) # 1
-        direction = 1 # 1
+        interval = end-start+1 
+        ret = StaticArray(size=interval) 
+        direction = 1 
+
+    # Enumerate over the range from start to end. The direction lets us know if we need to count up or down
+    # use the index from enumeration for accessing ret (short for return). O(n)
     for i, value in enumerate(range(start, end, direction)):
         ret[i] = value
     ret[interval-1] = end
@@ -89,13 +128,22 @@ def sa_range(start: int, end: int) -> StaticArray:
 
 def is_sorted(arr: StaticArray) -> int:
     """
-    TODO: Write this implementation
+    function is_sorted takes a StaticArray and returns 1, -1, or 0 
+    that denotes that values are ascending/descending/neither
     """
+
     if arr.length() == 1:
         return 1
 
     desc = 0
     asc = 0
+    
+    # Iterate over arr, checking for 2 conditions:
+    #   (1) the current value is larger than the next
+    #   (2) the current value is smaller than the next
+    #   In each of these cases, set a flag.
+    # If, at any time neither of these conditions are triggered, then that must mean that 
+    # the values are both ascending and descending, so return 0 O(n)
     for i in range(arr.length() - 1):
         if arr[i] > arr[i+1]:
             desc = -1
@@ -111,13 +159,17 @@ def is_sorted(arr: StaticArray) -> int:
 
 def find_mode(arr: StaticArray) -> tuple[object, int]:
     """
-    TODO: Write this implementation
+    function find_mode takes a StaticArray and returns a tuple containing 
+    original elements in order from most repeated to the least repeated
+    values
     """
-    # current_val = arr[0]
-    # current_val_count = 0
+    
     mode = arr[0]
     frequency = 0
     i = 0 
+    # Iterate over arr. Count the number of equal values (starting with arr[0]. 
+    # Every time we encounter a value different than the current one we're evaluating,
+    # switch to counting the new value. Store the value and count of the most frequently occurring value O(n)
     while i < arr.length():
         current_val = arr[i]
         current_val_count = 0
@@ -127,19 +179,21 @@ def find_mode(arr: StaticArray) -> tuple[object, int]:
                 frequency = current_val_count
                 mode = current_val
             i += 1
-# [1,1,1,2,2,5,5]
+
     return (mode, frequency)
 
 # ------------------- PROBLEM 8 - REMOVE_DUPLICATES -------------------------
 
 def remove_duplicates(arr: StaticArray) -> StaticArray:
     """
-    TODO: Write this implementation
+    function remove_duplicates takes a StaticArray 
+    and returns a new StaticArray containing original elements 
+    without repeating elements
     """
-    # [1,1,4,4]
-    # [1, 4]
+    
+    # Find the number of distinct values to be able to create a new StaticArray of this size O(n)
     distinct_values = 1
-    for i in range(arr.length() - 1): #O(n)
+    for i in range(arr.length() - 1): 
         if arr[i] == arr[i+1]:
             continue
         distinct_values += 1
@@ -148,6 +202,8 @@ def remove_duplicates(arr: StaticArray) -> StaticArray:
 
     i = 0
     j = 0 #no_duplicates index
+    # Iterate over arr, any time we see a new value, add it to the no_duplicates array. Otherwise,
+    # continue until we see a new value. O(n)
     while i < arr.length():
         current_val = arr[i]
         no_duplicates[j] = current_val
@@ -160,17 +216,20 @@ def remove_duplicates(arr: StaticArray) -> StaticArray:
 
 def count_sort(arr: StaticArray) -> StaticArray:
     """
-    TODO: Write this implementation
+    function count_sort takes a StaticArray and returns a new
+    StaticArray containing original elements in a non-descending order
     """
-    # get min and max to get range, create static-array for each value in range
-    # itereate over range of values in n
     
     min, max = min_max(arr)
 
+    # Use min, max to determine number of values between those two points. 
+    # We will count the number of times each value occurrs in arr.
+    # Create a StaticArray to store frequencies-- initialize all values to 0 O(k)
     value_counts = StaticArray(max-min+1)
     for i in range(max-min+1):
         value_counts[i] = 0
     
+    # Iterate over arr, counting freqency as described above O(n)
     for i in range(arr.length()):
         value = arr[i]
         value_counts_i = value - min
@@ -178,8 +237,11 @@ def count_sort(arr: StaticArray) -> StaticArray:
 
     ret = StaticArray(arr.length())
     
+    # Iterate over the freqency counts. Each position corresponds 1-to-1 with the values between min,max
+    # so we determine the corresponding value by its index, then add duplicate values based on the stored frequency.
     insert_at = 0
     max_offset = 0
+    # O(n+k)
     for i in range(value_counts.length()-1, -1, -1):
         number_of_values = value_counts[i]
         value = max - max_offset
@@ -195,15 +257,18 @@ def count_sort(arr: StaticArray) -> StaticArray:
 # ------------------- PROBLEM 10 - SORTED SQUARES ---------------------------
 
 def sorted_squares(arr: StaticArray) -> StaticArray:
-    """
-    TODO: Write this implementation
+    """ 
+    function sorted_squares takes a StaticArray and returns a new 
+    StaticArray containing original elements squared in a non-descending order
     """
 
-
+    # our buffers use a length of arr.length() because we can have at most arr.length() number of positive or negative values.
     positives = StaticArray(arr.length())
     negatives = StaticArray(arr.length())
     ret = StaticArray(arr.length())
 
+    # p, n are used to store the index for positives and negatives. Iterate over arr, positive values (including 0)
+    # are saved in 'positives'. Negatives are stored in 'negatives'. O(n)
     p, n = 0, 0
     for i in range(arr.length()):
         if arr[i] >= 0:
@@ -213,11 +278,17 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
             negatives[n] = arr[i]**2
             n += 1
 
+    # because arr is given to us in order (ascending), a list containing the square of negative values will need to be reversed ([-5,-2,-1] --> [25,4,1] --> [1,4,25]) O(n)
     reverse(negatives)
 
     p, n = 0, 0
     i = 0
+    # In most cases, the unused slots in negatives will be full of Nones, since we reversed this list, all the Nones will be in the front.
+    # Iterate the negatives index (n) until there are no more Nones. We only want the values. O(n)
     while n < arr.length() and negatives[n] == None: n += 1
+
+    # Stitch together positives and negatives in ret (return StaticArray). Compare both lists, adding the smallest value between the two.
+    # Arr was given to us in sorted order so our positive and negative arrays are also in sorted order. O(n)
     while p < arr.length() and positives[p] != None and n < arr.length():
         if positives[p] <= negatives[n]:
             ret[i] = positives[p]
@@ -227,6 +298,7 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
             n += 1
         i += 1
 
+    # Write the remaining values (if any) to ret. O(n)
     while p < arr.length() and positives[p] != None:
         ret[i] = positives[p]
         i += 1
