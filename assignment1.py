@@ -99,7 +99,7 @@ def is_sorted(arr: StaticArray) -> int:
     for i in range(arr.length() - 1):
         if arr[i] > arr[i+1]:
             desc = -1
-        else:
+        elif arr[i] < arr[i+1]:
             asc = 1
     return asc + desc
 
