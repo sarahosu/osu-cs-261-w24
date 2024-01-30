@@ -233,7 +233,6 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
         ret[i] = negatives[n]
         i += 1
         n += 1
-    reverse(ret)
     return ret
 
 
