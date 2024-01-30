@@ -97,7 +97,7 @@ def is_sorted(arr: StaticArray) -> int:
     desc = 0
     asc = 0
     for i in range(arr.length() - 1):
-        if arr[i] >= arr[i+1]:
+        if arr[i] > arr[i+1]:
             desc = -1
         else:
             asc = 1
@@ -241,8 +241,6 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
 
 
 if __name__ == "__main__":
-
-
     print('\n# min_max example 1')
     arr = StaticArray(5)
     for i, value in enumerate([7, 8, 6, -5, 4]):
