@@ -3,7 +3,7 @@
 # Course: CS261 - Data Structures
 # Assignment: 1 - Python Fundamentals Review
 # Due Date: 01/29/2024
-# Description: has 10 functions along with testing
+# Description: has 10 functions along with test cases
     # function min_max takes in a StaticArray and outputs the min and max in a tuple (with O(N) time complexity)
     # function fizz_buzz takes a StaticArray and outputs a new and modified StaticArray with values fizz, buzz, & fizzbuzz (with O(N) time complexity)
     # function reverse takes a StaticArray and reverses elements (with O(N) time complexity)
@@ -51,7 +51,8 @@ def fizz_buzz(arr: StaticArray) -> StaticArray:
         -fizzbuzz (if original element is divisible both 3 and 5)
     """
 
-    # Iterate over arr, use mod math to determine if something is divisible by 3 and 5 first, then either divisible by 5/3 then 3/5. O(n)
+    # Iterate over arr, use mod math to determine if something is divisible 
+    # by 3 and 5 first, then either divisible by 5/3 then 3/5. O(n)
     ret = StaticArray(size=arr.length())
     for i in range(arr.length()):
         if arr[i] % 3 == 0 and arr[i] % 5 == 0:
@@ -74,9 +75,9 @@ def reverse(arr: StaticArray) -> None:
     
     static_array_length = arr.length()
 
-    # iterate only half of StaticArray O(n)
+    # Iterate only half of StaticArray O(n)
+    # Swaps current index with mirror index
     for i in range(static_array_length // 2): 
-        # swaps current index with mirror index
         arr[i], arr[static_array_length-1-i] = arr[static_array_length-1-i], arr[i]
 
 # ------------------- PROBLEM 4 - ROTATE ------------------------------------
@@ -87,11 +88,11 @@ def rotate(arr: StaticArray, steps: int) -> StaticArray:
     then outputs a new StaticArray with elements rotated by given integer
     """
 
-    # new StaticArray called ret with arr length O(n)
+    # New StaticArray called ret with arr length O(n)
     ret = StaticArray(size=arr.length())
     for i in range(arr.length()):
-        # adds steps to current index modulus length
-        # assigns to arr[i] value
+        # Adds steps to current index modulus length
+        # Assigns to arr[i] value
         ret[(i + steps) % arr.length()] = arr[i]
     return ret
 
@@ -105,8 +106,8 @@ def sa_range(start: int, end: int) -> StaticArray:
     """
 
     # interval denotes the number of values between the two parameters
-    # If the start is higher than the end, that means we want to go backwards eg. counting down, as opposed
-    # to counting upwards, denoted by the direction
+    # If the start is higher than the end, that means we want to go backwards 
+    # eg. counting down, as opposed to counting upwards, denoted by the direction
     if start > end: 
         interval = start-end+1 
         ret = StaticArray(size=interval) 
@@ -116,7 +117,8 @@ def sa_range(start: int, end: int) -> StaticArray:
         ret = StaticArray(size=interval) 
         direction = 1 
 
-    # Enumerate over the range from start to end. The direction lets us know if we need to count up or down
+    # Enumerate over the range from start to end. 
+    #  The direction lets us know if we need to count up or down
     # use the index from enumeration for accessing ret (short for return). O(n)
     for i, value in enumerate(range(start, end, direction)):
         ret[i] = value
@@ -168,8 +170,9 @@ def find_mode(arr: StaticArray) -> tuple[object, int]:
     frequency = 0
     i = 0 
     # Iterate over arr. Count the number of equal values (starting with arr[0]. 
-    # Every time we encounter a value different than the current one we're evaluating,
-    # switch to counting the new value. Store the value and count of the most frequently occurring value O(n)
+    # Every time we encounter a value different than the current 
+    # one we're evaluating, switch to counting the new value. 
+    # Store the value and count of the most frequently occurring value O(n)
     while i < arr.length():
         current_val = arr[i]
         current_val_count = 0
@@ -191,7 +194,8 @@ def remove_duplicates(arr: StaticArray) -> StaticArray:
     without repeating elements
     """
     
-    # Find the number of distinct values to be able to create a new StaticArray of this size O(n)
+    # Find the number of distinct values to be able to create a 
+    # new StaticArray of this size O(n)
     distinct_values = 1
     for i in range(arr.length() - 1): 
         if arr[i] == arr[i+1]:
@@ -202,7 +206,8 @@ def remove_duplicates(arr: StaticArray) -> StaticArray:
 
     i = 0
     j = 0 #no_duplicates index
-    # Iterate over arr, any time we see a new value, add it to the no_duplicates array. Otherwise,
+    # Iterate over arr, any time we see a new value, 
+    # add it to the no_duplicates array. Otherwise,
     # continue until we see a new value. O(n)
     while i < arr.length():
         current_val = arr[i]
@@ -237,8 +242,10 @@ def count_sort(arr: StaticArray) -> StaticArray:
 
     ret = StaticArray(arr.length())
     
-    # Iterate over the freqency counts. Each position corresponds 1-to-1 with the values between min,max
-    # so we determine the corresponding value by its index, then add duplicate values based on the stored frequency.
+    # Iterate over the freqency counts. Each position corresponds 
+    # 1-to-1 with the values between min,max
+    # so we determine the corresponding value by its index, 
+    # then add duplicate values based on the stored frequency.
     insert_at = 0
     max_offset = 0
     # O(n+k)
@@ -262,12 +269,14 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
     StaticArray containing original elements squared in a non-descending order
     """
 
-    # our buffers use a length of arr.length() because we can have at most arr.length() number of positive or negative values.
+    # our buffers use a length of arr.length() because we can have at 
+    # most arr.length() number of positive or negative values.
     positives = StaticArray(arr.length())
     negatives = StaticArray(arr.length())
     ret = StaticArray(arr.length())
 
-    # p, n are used to store the index for positives and negatives. Iterate over arr, positive values (including 0)
+    # p, n are used to store the index for positives and negatives
+    # Iterate over arr, positive values (including 0)
     # are saved in 'positives'. Negatives are stored in 'negatives'. O(n)
     p, n = 0, 0
     for i in range(arr.length()):
@@ -278,17 +287,23 @@ def sorted_squares(arr: StaticArray) -> StaticArray:
             negatives[n] = arr[i]**2
             n += 1
 
-    # because arr is given to us in order (ascending), a list containing the square of negative values will need to be reversed ([-5,-2,-1] --> [25,4,1] --> [1,4,25]) O(n)
+    # because arr is given to us in order (ascending), a list containing the 
+    # square of negative values will need to be reversed 
+            # ([-5,-2,-1] --> [25,4,1] --> [1,4,25]) O(n)
     reverse(negatives)
 
     p, n = 0, 0
     i = 0
-    # In most cases, the unused slots in negatives will be full of Nones, since we reversed this list, all the Nones will be in the front.
-    # Iterate the negatives index (n) until there are no more Nones. We only want the values. O(n)
+    # In most cases, the unused slots in negatives will be full of Nones, 
+    # since we reversed this list, all the Nones will be in the front.
+    # Iterate the negatives index (n) until there are no more Nones. 
+    # We only want the values. O(n)
     while n < arr.length() and negatives[n] == None: n += 1
 
-    # Stitch together positives and negatives in ret (return StaticArray). Compare both lists, adding the smallest value between the two.
-    # Arr was given to us in sorted order so our positive and negative arrays are also in sorted order. O(n)
+    # Stitch together positives and negatives in ret (return StaticArray). 
+    # Compare both lists, adding the smallest value between the two.
+    # Arr was given to us in sorted order so our positive and 
+    # negative arrays are also in sorted order. O(n)
     while p < arr.length() and positives[p] != None and n < arr.length():
         if positives[p] <= negatives[n]:
             ret[i] = positives[p]
